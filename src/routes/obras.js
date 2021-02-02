@@ -98,7 +98,7 @@ router.get('/pde/actividades/:id/:obra_id',isLoggedIn, async (req, res) => {
     const id = req.params.id;
     const obra_id = req.params.obra_id;
     //const results = await pool.query('SELECT * FROM vistaActividades WHERE id_planE = ? and id_obra = ?',[id, obra_id]);
-    await pool.query('SELECT * FROM vistaActividades', (err, results) => {
+    await pool.query('SELECT * FROM vistaActividades WHERE id_obra = ? AND id_planE = ?', [obra_id,id], (err, results) => {
         if (err) throw err; 
             res.render('obras/actividades', {
                 results: results,
@@ -111,17 +111,20 @@ router.get('/pde/actividades/:id/:obra_id',isLoggedIn, async (req, res) => {
 
 router.get('/pde/actividades/agregarAct/:id/:obra_id',isLoggedIn, isMasterAcount, async (req, res) => {
     const id_planE = req.params.id;
-    const id_obra = req.params.obra_id;
-    res.render('obras/agregarAct', {
-        id_planE: id_planE,
-        id_obra: id_obra
-    });    
-});
+    const id_obra = req.params.obra_id; await pool.query('SELECT * FROM vistasupervisores', 
+    (err, results) => {
+        if (err) throw err; 
+        res.render('obras/agregarAct', {
+            results: results,
+            id_planE: id_planE,
+            id_obra: id_obra
+        });
+})});
 
 router.post('/pde/actividades/agregarAct',isLoggedIn, isMasterAcount, async (req, res) => {
     console.log(req.body);
     const {id_planE, id_obra, estadoA, fechaInicio, fechaFin, 
-        descripcion, observaciones} = req.body;
+        id_super, descripcion, observaciones} = req.body;
     const nuevaActividad = {
         id_planE: id_planE,
         id_obra: id_obra,
@@ -129,7 +132,8 @@ router.post('/pde/actividades/agregarAct',isLoggedIn, isMasterAcount, async (req
         fechaInicio: fechaInicio,
         fechaFin: fechaFin,
         descripcion: descripcion,
-        observaciones: observaciones
+        observaciones: observaciones,
+        id_supervisor: id_super
     };
     await pool.query('INSERT INTO actividades set ?', [nuevaActividad]);
     res.redirect('/obras/pde/actividades/'+id_planE+'/'+id_obra);
