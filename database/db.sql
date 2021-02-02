@@ -1,150 +1,118 @@
-CREATE DATABASE database_CSAC;
-
-USE database_CSAC;
-
---CREACION TABLA CLIENTES
-CREATE TABLE clientes(
-    id INT(11) NOT NULL,
-    DNI VARCHAR (15) NOT NULL,
-    nombres VARCHAR(60) NOT NULL,
-    apellidos VARCHAR(60) NOT NULL,
-    telefono VARCHAR(20) NOT NULL,
-    direccion VARCHAR(70) NOT NULL
+CREATE TABLE clientes (
+  id int NOT NULL AUTO_INCREMENT,
+  DNI varchar(15) NOT NULL,
+  nombres varchar(60) NOT NULL,
+  apellidos varchar(60) NOT NULL,
+  telefono varchar(20) NOT NULL,
+  direccion varchar(70) NOT NULL,
+  PRIMARY KEY (id)
 );
 
-ALTER TABLE clientes
-    ADD PRIMARY KEY (id);
-
-ALTER TABLE clientes
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
-
---CREACION TABLA OBRAS
-CREATE TABLE obras(
-    id INT(11) NOT NULL,
-    nombre VARCHAR(40) NOT NULL,
-    direccion VARCHAR(70) NOT NULL,
-    tipo VARCHAR(20) NOT NULL
+CREATE TABLE obras (
+  id int NOT NULL AUTO_INCREMENT,
+  nombre varchar(40) NOT NULL,
+  direccion varchar(70) NOT NULL,
+  tipo varchar(20) NOT NULL,
+  PRIMARY KEY (id)
 );
 
-ALTER TABLE obras
-    ADD PRIMARY KEY (id);
-
-ALTER TABLE obras
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
-
---CREACION TABLA CONTRATOS
-
-CREATE TABLE contratos(
-    id INT(11) NOT NULL,
-    estado VARCHAR(40) NOT NULL,
-    tipo VARCHAR(10) NOT NULL,
-    cliente_id INT(11) NOT NULL,
-    obra_id INT(11) NOT NULL,
-    CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) REFERENCES clientes(id),
-    CONSTRAINT fk_obra FOREIGN KEY (obra_id) REFERENCES obras(id)
+CREATE TABLE contratos (
+  id int NOT NULL AUTO_INCREMENT,
+  tipo varchar(20) NOT NULL,
+  cliente_id int NOT NULL,
+  obra_id int DEFAULT NULL,
+  PRIMARY KEY (id,cliente_id),
+  KEY fk_planE (obra_id),
+  KEY fk_obra (cliente_id),
+  CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_obra FOREIGN KEY (cliente_id) REFERENCES clientes (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-ALTER TABLE contratos
-    ADD PRIMARY KEY (id, cliente_id);
-
-ALTER TABLE contratos
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
-
-
---CREACION TABLAS PERSONAL
-
-CREATE TABLE personal(
-    id INT(11) NOT NULL,
-    DNI VARCHAR(40) NOT NULL,
-    password VARCHAR (60) NOT NULL,
-    nombres VARCHAR(60) NOT NULL,
-    apellidos VARCHAR(60) NOT NULL,
-    telefono VARCHAR(20) NOT NULL,
-    direccion VARCHAR(70) NOT NULL
+CREATE TABLE planesejecucion (
+  id int NOT NULL AUTO_INCREMENT,
+  fechaInicio date NOT NULL,
+  fechaFin date NOT NULL,
+  descripcion text,
+  obra_id int NOT NULL,
+  PRIMARY KEY (id,obra_id),
+  KEY fk_planE (obra_id),
+  CONSTRAINT fk_planE FOREIGN KEY (obra_id) REFERENCES obras (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-ALTER TABLE personal
-    ADD PRIMARY KEY (id);
-
-ALTER TABLE personal
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
-
---CREACION TABLA OBREROS
-
-CREATE TABLE obreros(
-    personal_id INT (11) NOT NULL,
-    especialidad VARCHAR(20) NOT NULL,
-    CONSTRAINT fk_obrero FOREIGN KEY (personal_id) REFERENCES personal (id)
+CREATE TABLE personal (
+  id int NOT NULL AUTO_INCREMENT,
+  DNI varchar(40) NOT NULL,
+  nombres varchar(60) NOT NULL,
+  apellidos varchar(60) NOT NULL,
+  telefono varchar(20) NOT NULL,
+  direccion varchar(70) NOT NULL,
+  tipo varchar(30) DEFAULT NULL,
+  PRIMARY KEY (id)
 );
 
-ALTER TABLE obreros
-    ADD PRIMARY KEY (personal_id);
-
---CREACION TABLA SUPERVISORES
-
-CREATE TABLE supervisores(
-    personal_id INT (11) NOT NULL,
-    CONSTRAINT fk_supervisor FOREIGN KEY (personal_id) REFERENCES personal (id)
+CREATE TABLE supervisores (
+  personal_id int NOT NULL,
+  contraseña varchar(100) NOT NULL,
+  PRIMARY KEY (personal_id),
+  CONSTRAINT fk_supervisor FOREIGN KEY (personal_id) REFERENCES personal (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-ALTER TABLE supervisores
-    ADD PRIMARY KEY (personal_id);
-
---CREACION TABLA PLANES DE EJECUCION
-
-CREATE TABLE planesEjecucion(
-    id INT(11) NOT NULL,
-    fechaInicio DATE NOT NULL,
-    fechaFin DATE NOT NULL,
-    estado VARCHAR(20) NOT NULL,
-    descripcion TEXT,
-    obra_id INT (11) NOT NULL,
-    CONSTRAINT fk_planE FOREIGN KEY (obra_id) REFERENCES obras (id)
+CREATE TABLE obreros (
+  personal_id int NOT NULL,
+  especialidad varchar(20) NOT NULL,
+  PRIMARY KEY (personal_id),
+  CONSTRAINT fk_obrero FOREIGN KEY (personal_id) REFERENCES personal (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-ALTER TABLE planesEjecucion
-    ADD PRIMARY KEY (id, obra_id);
-
-ALTER TABLE planesEjecucion
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
-
---CREACION TABLA ACTIVIDADES
-
-CREATE TABLE actividades(
-    id INT (11) NOT NULL,
-    id_obra INT (11) NOT NULL,
-    id_planE INT (11) NOT NULL,
-    estado VARCHAR(20) NOT NULL,
-    observaciones TEXT,
-    obra_id INT (11) NOT NULL,
-    fechaInicio DATE NOT NULL,
-    fechaFin DATE NOT NULL,
-    descripcion TEXT,
-    CONSTRAINT fk_planE2 FOREIGN KEY (id_planE) REFERENCES planesEjecucion (id),
-    CONSTRAINT fk_obra2 FOREIGN KEY (id_obra) REFERENCES planesEjecucion (obra_id)
+CREATE TABLE actividades (
+  id int NOT NULL AUTO_INCREMENT,
+  id_obra int NOT NULL,
+  id_planE int NOT NULL,
+  estado varchar(20) NOT NULL,
+  observaciones text,
+  fechaInicio date NOT NULL,
+  fechaFin date NOT NULL,
+  descripcion text,
+  id_supervisor int DEFAULT NULL,
+  PRIMARY KEY (id,id_planE,id_obra),
+  KEY fk_planE2 (id_planE),
+  KEY fk_obra2 (id_obra),
+  KEY fk_supervisorX (id_supervisor),
+  CONSTRAINT fk_obra2 FOREIGN KEY (id_obra) REFERENCES planesejecucion (obra_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_planE2 FOREIGN KEY (id_planE) REFERENCES planesejecucion (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_supervisorX FOREIGN KEY (id_supervisor) REFERENCES supervisores (personal_id)
 );
 
-ALTER TABLE actividades
-    ADD PRIMARY KEY (id, id_planE, id_obra);
-
-ALTER TABLE actividades
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 1;
-
---CREACION TABLA DESEMPEÑO OBRERO
-
-CREATE TABLE desempeñoObrero(
-    id_obrero INT (11) NOT NULL,
-    id_actividad INT (11) NOT NULL,
-    id_planEX INT (11) NOT NULL,
-    id_obraX INT (11) NOT NULL,
-    descripcion TEXT,
-    desempeño VARCHAR (20) NOT NULL,
-    puesto VARCHAR (20) NOT NULL,
-    CONSTRAINT fk_obrero3 FOREIGN KEY (id_obrero) REFERENCES obreros (personal_id),
-    CONSTRAINT fk_actividad FOREIGN KEY (id_actividad) REFERENCES actividades (id),
-    CONSTRAINT fk_planE3 FOREIGN KEY (id_planEX) REFERENCES actividades (id_planE),
-    CONSTRAINT fk_obra3 FOREIGN KEY (id_obraX) REFERENCES actividades (id_obra)
+CREATE TABLE desempeñoobrero (
+  id_obrero int NOT NULL,
+  id_actividad int NOT NULL,
+  id_planEX int NOT NULL,
+  id_obraX int NOT NULL,
+  descripcion text,
+  desempeño varchar(20) DEFAULT NULL,
+  puesto varchar(20) DEFAULT NULL,
+  PRIMARY KEY (id_obrero,id_actividad,id_planEX,id_obraX),
+  KEY fk_actividad (id_actividad),
+  KEY fk_obra3 (id_obraX),
+  KEY fk_planE3 (id_planEX),
+  CONSTRAINT fk_actividad FOREIGN KEY (id_actividad) REFERENCES actividades (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_obra3 FOREIGN KEY (id_obraX) REFERENCES actividades (id_obra) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_obrero3 FOREIGN KEY (id_obrero) REFERENCES obreros (personal_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_planE3 FOREIGN KEY (id_planEX) REFERENCES actividades (id_planE) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-ALTER TABLE desempeñoObrero
-    ADD PRIMARY KEY (id_obrero, id_actividad, id_planEX, id_obraX);
+CREATE TABLE capacidades (
+	id int NOT NULL auto_increment,
+    capacidad varchar(20) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE obrero_tiene_capacidades (
+	id_obrero int NOT NULL,
+    id_capacidad int NOT NULL,
+    PRIMARY KEY (id_obrero, id_capacidad),
+    KEY fk_obrero4 (id_obrero),
+    KEY fk_capacidad (id_capacidad),
+    CONSTRAINT fk_obrero4 FOREIGN KEY (id_obrero) references obreros (personal_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_capacidad FOREIGN KEY (id_capacidad) references capacidades (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
