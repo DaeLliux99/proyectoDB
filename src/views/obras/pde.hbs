@@ -1,0 +1,21 @@
+<div class="container p-4">
+    <div class="row mx-auto">
+        <div class="row mx-auto">
+            {{#each results}}
+            <div class="col-md-12 mx-auto">
+                <div class="card text-center mx-auto">
+                    <div class="card-body">
+                        <p class= "m-2 font-weight-bold">Fecha de Inicio:</p>
+                        <p class= "m-2">{{fechaInicio}}</p>
+                        <p class= "m-2 font-weight-bold">Fecha de Fin: </p>
+                        <p class= "m-2">{{fechaFin}}</p>
+                        <p class= "m-2 font-weight-bold">Descripcion: </p>
+                        <p class= "m-2">{{descripcion}}</p>
+                        <a href="/obras/pde/actividades/{{id}}/{{obra_id}}" class = "btn btn-success btn-block">Ver Actividades</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

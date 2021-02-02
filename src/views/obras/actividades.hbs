@@ -1,0 +1,77 @@
+<div class="container p-4">
+    <div class="row">
+        {{#if results}}
+        {{#if isMasterAcc}}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha de Inicio</th>
+                    <th scope="col">Fecha de Termino</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Observaciones</th>
+                    <th scope="col">Nombre de la Obra</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each results}}
+                <tr>
+                    <th scope="row">{{id}}</th>
+                    <td>{{estado}}</td>
+                    <td>{{fechaInicio}}</td>
+                    <td>{{fechaFin}}</td>
+                    <td>{{descripcion}}</td>
+                    <td>{{observaciones}}</td>
+                    <td>{{nombreObra}}</td>
+                    <td><a href="/obras/pde/actividades/borrar/{{id}}/{{id_planE}}/{{id_obra}}">Borrar Actividad</a>
+                    </td>
+                    <td><a href="/obras/pde/actividades/agregarObreros/{{id}}/{{id_planE}}/{{id_obra}}">Agregar Obreros</a></td>
+                    <td><a href="/obras/pde/actividades/obreros/{{id}}/{{id_planE}}/{{id_obra}}">Ver Obreros</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha de Inicio</th>
+                    <th scope="col">Fecha de Termino</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Observaciones</th>
+                    <th scope="col">Nombre de la Obra</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each results}}
+                <tr>
+                    <th scope="row">{{id}}</th>
+                    <td>{{estado}}</td>
+                    <td>{{fechaInicio}}</td>
+                    <td>{{fechaFin}}</td>
+                    <td>{{descripcion}}</td>
+                    <td>{{observaciones}}</td>
+                    <td>{{nombreObra}}</td>
+                    <td><a href="/obras/pde/actividades/obreros/{{id}}/{{id_planE}}/{{id_obra}}">Ver Obreros</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{/if}}
+        <a class="btn btn-success mx-auto" href="/obras/pde/actividades/agregarAct/{{id_planEX}}/{{id_ObraX}}">Agregar
+            Actividad</a>
+        {{else}}
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>Aun no hay actividades</p>
+                <a href="/obras/pde/actividades/agregarAct/{{id_planEX}}/{{id_ObraX}}">Crea Una!</a>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>

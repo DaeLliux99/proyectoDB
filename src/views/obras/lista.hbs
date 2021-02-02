@@ -1,0 +1,66 @@
+<div class="container p-4">
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">tipo</th>
+                    <th scope="col">Tipo de Contrato</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            {{#if isMasterAcc}}
+            <tbody>
+                {{#each results}}
+                <tr>
+                    <th scope="row">{{id}}</th>
+                    <td>{{nombre}}</td>
+                    <td>{{direccion}}</td>
+                    <td>{{tipo}}</td>
+                    <td>{{tipoContrato}}</td>
+                    <td>
+                        <a href="">
+                        {{apellidos}}
+                        </a>
+                    </td>
+                    <!--
+                    <td>
+                        <a href="/obras/editar/{{id}}" class = "btn btn-dark">Modificar Obra</a>
+                    </td>
+                     Esto es un comentario -->
+                    <td>
+                        <a href="/obras/pde/{{id}}" >Plan de Ejecucion</a>
+                    </td>
+                    <td>
+                        <a href="/obras/borrar/{{id}}" class = "btn btn-danger">Eliminar Obra</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+            {{else}}
+                <tbody>
+                {{#each results}}
+                <tr>
+                    <th scope="row">{{id}}</th>
+                    <td>{{nombre}}</td>
+                    <td>{{direccion}}</td>
+                    <td>{{tipo}}</td>
+                    <td>{{tipoContrato}}</td>
+                    <td>
+                        <a href="">
+                        {{apellidos}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/obras/pde/{{id}}" >Plan de Ejecucion</a>
+                    </td>
+                </tr>
+                {{/each}}
+            {{/if}}
+        </table>
+    </div>
+</div>

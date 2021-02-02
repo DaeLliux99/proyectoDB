@@ -1,0 +1,45 @@
+<div class="container p-4">
+    <form action="/obras/pde/actividades/agregarObreros" method="POST">
+        <div class="form-row">
+            <div class="container text-center">
+                <h3>Agregar Obreros</h3>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>id</label>
+                <input class="form-control" name = "id" type="text" value = {{id}} readonly>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>id plan de Ejecucion</label>
+                <input class="form-control" name = "id_planE" type="text" value = {{id_planE}} readonly>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>id obra</label>
+                <input class="form-control" name = "id_obra" type="text" value = {{id_obra}} readonly>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label>Obreros</label>
+                <div class="input-group">
+                    <select class="custom-select" name="id_obrero">
+                        <option selected>Selecciona una opcion</option>
+                        {{#each results}}
+                        <option value = "{{id}}" >DNI: {{DNI}} / Apellidos: {{apellidos}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label>Puesto</label>
+                <div class="input-group">
+                    <select class="custom-select" name="puesto">
+                        <option selected>Selecciona una opcion</option>
+                        <option value = "Techero">Techero</option>
+                        <option value = "Albañil">Albañil</option>
+                        <option value = "Mezclas">Mezclas</option>
+                        <option value = "Tuberias">Tuberias</option>
+                    </select>
+                </div>
+            </div>
+        <button class="btn btn-primary btn-block">Agregar Obrero</button>
+    </form>
+    <a class = "btn btn-success btn-block" href="/obras/pde/actividades/{{id_planE}}/{{id_obra}}">Finalizar</a>
+</div>

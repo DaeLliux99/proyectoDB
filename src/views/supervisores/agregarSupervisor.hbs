@@ -1,0 +1,38 @@
+<div class="container p-4">
+    <div class="row">
+        <form action="/supervisores/agregarSupervisor" method="POST">
+            <div class="form-row center-block">
+                <div class="container text-center">
+                    <h3>Agregar Supervisor</h3>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>DNI</label>
+                    <input type="text" class="form-control" name="dniE" placeholder="DNI" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Nombres</label>
+                    <input type="text" class="form-control" name="nombreE" placeholder="Nombres" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Apellidos</label>
+                    <input type="text" class="form-control" name="apellidoE" placeholder="Apellidos" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label>Telefono</label>
+                    <input type="text" class="form-control" name="telefonoE" placeholder="Telefono" required>
+                </div>
+                <div class="col-md-7 mb-3">
+                    <label>Direccion</label>
+                    <input type="text" class="form-control" name="direccionE" placeholder="Direccion" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label>Contraseña</label>
+                    <input type="text" class="form-control" name="contraseñaE" placeholder="Contraseña" required>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-block">Agregar Supervisor</button>
+            </div>
+        </form>
+    </div>
+</div>

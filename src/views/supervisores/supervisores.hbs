@@ -1,0 +1,32 @@
+<div class="container p-4">
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">nombres</th>
+                    <th scope="col">apellidos</th>
+                    <th scope="col">telefono</th>
+                    <th scope="col">direccion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each results}}
+                <tr>
+                    <th scope="row">{{id}}</th>
+                    <td>{{DNI}}</td>
+                    <td>{{nombres}}</td>
+                    <td>{{apellidos}}</td>
+                    <td>{{telefono}}</td>
+                    <td>{{direccion}}</td>
+                    <td>
+                        <a href="/supervisores/borrar/{{id}}" class = "btn btn-danger">Borrar Supervisor</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <a class = "btn btn-success mx-auto" href="/supervisores/agregarSupervisor">Agregar Supervisor</a>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="container p-4">
+    <form action="/obras/agregar" method="POST">
+        <div class="form-row">
+            <div class="container text-center">
+                <h3>Agregar Obra</h3>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Nombre</label>
+                <input type="text" class="form-control" name="nombreObra" placeholder="Nombre" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Direccion</label>
+                <input type="text" class="form-control" name="direccionObra" placeholder="Direccion" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Tipo</label>
+                <div class="input-group">
+                    <select class="custom-select" name="tipoObra">
+                        <option selected>Selecciona una opcion</option>
+                        <option value="Pequeño">Pequeño</option>
+                        <option value="Mediano">Mediano</option>
+                        <option value="Grande">Grande</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="container text-center">
+                <h3>Agregar Cliente</h3>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>DNI</label>
+                <input type="text" class="form-control" name="dniCliente" placeholder="DNI" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Nombre</label>
+                <input type="text" class="form-control" name="nombreCliente" placeholder="Nombre" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Apellidos</label>
+                <input type="text" class="form-control" name="apellidoCliente" placeholder="Apellidos" required>
+            </div>
+            <div class="col-md-2 mb-2">
+                <label>Telefono</label>
+                <input type="text" class="form-control" name="telefonoCliente" placeholder="Telefono" required>
+            </div>
+            <div class="col-md-6 mb-2">
+                <label>Direccion</label>
+                <input type="text" class="form-control" name="direccionCliente" placeholder="Direccion" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Tipo de contrato</label>
+                <div class="input-group">
+                    <select class="custom-select" name="tipoContrato">
+                        <option selected>Selecciona una opcion</option>
+                        <option value="A todo costo">A todo costo</option>
+                        <option value="Normal">Normal</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="container text-center">
+                <h3>Agregar Plan de Ejecucion</h3>
+            </div>
+            <div class="col-md-6 mb-3"> 
+                <label>Fecha Inicio</label>
+                <input class="form-control" name="fechaInicio" type="date" required>
+            </div>
+            <div class="col-md-6 mb-3"> 
+                <label >Fecha Fin</label>
+                <input class="form-control" name="fechaFin" type="date" required>
+            </div>
+            <div class="col-md-12 mb-2">
+                <label >Descripcion</label>
+                <textarea name="description" rows="2" class="form-control" placeholder="Descripcion"></textarea>
+            </div>
+        </div>
+        <button class="btn btn-primary">Agregar obra</button>
+    </form>
+</div>

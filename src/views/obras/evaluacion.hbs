@@ -1,0 +1,46 @@
+<div class="container p-4">
+    <form action="/obras/pde/actividades/obreros/evaluacion" method="POST">
+        <div class="form-row">
+            <div class="container text-center">
+                <h3>Agregar Obreros</h3>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>ID obreros</label>
+                <input class="form-control" name = "id" type="text" value = {{personal_id}} readonly>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>ID de actividad</label>
+                <input class="form-control" name = "id_actividad" type="text" value = {{id_actividad}} readonly>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>ID plan de Ejecucion</label>
+                <input class="form-control" name = "id_planE" type="text" value = {{id_planE}} readonly>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>ID obra</label>
+                <input class="form-control" name = "id_obra" type="text" value = {{id_obra}} readonly>
+            </div>
+            <div class="col-md-12 mb-2">
+                <label >Descripcion</label>
+                <textarea name="descripcion" rows="2" class="form-control" placeholder="Descripcion"></textarea>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label>Desempeño</label>
+                <div class="input-group">
+                    <select class="custom-select" name="desempeño">
+                        <option selected>Selecciona una opcion</option>
+                        <option value = "Sobresaliente">Sobresaliente</option>
+                        <option value = "Bueno">Bueno</option>
+                        <option value = "Regular">Regular</option>
+                        <option value = "Malo">Malo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label>Puesto</label>
+                <input class="form-control" name = "puesto" type="text" value = {{puesto}} readonly>
+            </div>
+        <button class="btn btn-primary btn-block">Agregar Desempeño</button>
+    </form>
+    <a class = "btn btn-success btn-block" href="/obras/pde/actividades/obreros/{{id_actividad}}/{{id_planE}}/{{id_obra}}">Finalizar</a>
+</div>
